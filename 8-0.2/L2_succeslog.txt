@@ -1,0 +1,96 @@
+Started by user Artem K
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipeline_t
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Git)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/pipeline_t/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/netology-code/sdvps-materials.git # timeout=10
+Fetching upstream changes from https://github.com/netology-code/sdvps-materials.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/netology-code/sdvps-materials.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision da5acf7bcb7f437637adf06fbd03a24dc2c8f13e (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f da5acf7bcb7f437637adf06fbd03a24dc2c8f13e # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b master da5acf7bcb7f437637adf06fbd03a24dc2c8f13e # timeout=10
+Commit message: "branch main, add creds for vagrant box"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ go test .
+ok  	github.com/netology-code/sdvps-materials	0.001s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ docker build . -t ubuntu-bionic:8082/hello-world:v3
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  245.2kB
+Step 1/8 : FROM golang:1.16 AS builder
+ ---> 972d8c0bc0fc
+Step 2/8 : WORKDIR $GOPATH/src/github.com/netology-code/sdvps-materials
+ ---> Using cache
+ ---> 29c1dd9f6328
+Step 3/8 : COPY . ./
+ ---> a0ffc17f90f5
+Step 4/8 : RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app .
+ ---> Running in 8e71f31423f6
+ ---> Removed intermediate container 8e71f31423f6
+ ---> fc2cfef8915d
+Step 5/8 : FROM alpine:latest
+ ---> aded1e1a5b37
+Step 6/8 : RUN apk -U add ca-certificates
+ ---> Using cache
+ ---> 562d362f99b3
+Step 7/8 : COPY --from=builder /app /app
+ ---> Using cache
+ ---> 670afe1d7df4
+Step 8/8 : CMD ["/app"]
+ ---> Using cache
+ ---> 5902b93df56f
+Successfully built 5902b93df56f
+Successfully tagged ubuntu-bionic:8082/hello-world:v3
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push)
+[Pipeline] sh
++ docker login ubuntu-bionic:8082 -u admin -p Start12345
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
++ docker push ubuntu-bionic:8082/hello-world:v3
+The push refers to repository [ubuntu-bionic:8082/hello-world]
+11d493543c01: Preparing
+7922bfc1854a: Preparing
+08000c18d16d: Preparing
+7922bfc1854a: Layer already exists
+08000c18d16d: Layer already exists
+11d493543c01: Layer already exists
+v3: digest: sha256:13e94e77236e9b479bface90f22671c2375dd3ac04f3f16147783f4b12c9b557 size: 950
++ docker logout
+Removing login credentials for https://index.docker.io/v1/
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

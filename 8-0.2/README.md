@@ -4,13 +4,13 @@
 
 ### Задание 1
 
-Логи с успешным Console Output в файле N18.txt
+Логи с успешным Console Output в файле L1_succeslog.txt
 
 ---
 
 ### Задание 2
 
-https://github.com/Artem-K16git/for-edu/commit/5136ee9a4ce418b0768b66a2809f1b34067b4830
+Логи с успешным Console Output в файле L2_succeslog.txt
 
 
 ---
