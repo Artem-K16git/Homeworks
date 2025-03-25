@@ -1,0 +1,70 @@
+Started by user Artem K
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/test
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/test/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Artem-K16git/sdvps-materials-L1-.git # timeout=10
+Fetching upstream changes from https://github.com/Artem-K16git/sdvps-materials-L1-.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/Artem-K16git/sdvps-materials-L1-.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 223dbc3f489784448004e020f2ef224f17a7b06d (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+Commit message: "Update README.md"
+ > git rev-list --no-walk 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+[test] $ /bin/sh -xe /tmp/jenkins5850087663729257120.sh
++ /usr/lib/go-1.22/bin/go test .
+ok  	github.com/netology-code/sdvps-materials	(cached)
++ docker build . -t ubuntu-bionic:8082/hello-world:v18
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon    254kB
+Step 1/8 : FROM golang:1.16 AS builder
+ ---> 972d8c0bc0fc
+Step 2/8 : WORKDIR $GOPATH/src/github.com/netology-code/sdvps-materials
+ ---> Using cache
+ ---> 29c1dd9f6328
+Step 3/8 : COPY . ./
+ ---> Using cache
+ ---> 633892a16c32
+Step 4/8 : RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app .
+ ---> Using cache
+ ---> c4f6866e13c2
+Step 5/8 : FROM alpine:latest
+ ---> aded1e1a5b37
+Step 6/8 : RUN apk -U add ca-certificates
+ ---> Using cache
+ ---> 562d362f99b3
+Step 7/8 : COPY --from=builder /app /app
+ ---> Using cache
+ ---> 670afe1d7df4
+Step 8/8 : CMD ["/app"]
+ ---> Using cache
+ ---> 5902b93df56f
+Successfully built 5902b93df56f
+Successfully tagged ubuntu-bionic:8082/hello-world:v18
++ docker login ubuntu-bionic:8082 -u admin -p Start12345
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
++ docker push ubuntu-bionic:8082/hello-world:v18
+The push refers to repository [ubuntu-bionic:8082/hello-world]
+11d493543c01: Preparing
+7922bfc1854a: Preparing
+08000c18d16d: Preparing
+11d493543c01: Pushed
+7922bfc1854a: Pushed
+08000c18d16d: Pushed
+v18: digest: sha256:13e94e77236e9b479bface90f22671c2375dd3ac04f3f16147783f4b12c9b557 size: 950
++ docker logout
+Removing login credentials for https://index.docker.io/v1/
+Finished: SUCCESS
