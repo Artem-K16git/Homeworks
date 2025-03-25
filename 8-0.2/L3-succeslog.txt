@@ -1,0 +1,127 @@
+Started by user Artem K
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/pipeline_go
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Git)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/pipeline_go/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Artem-K16git/sdvps-materials-L1-.git/ # timeout=10
+Fetching upstream changes from https://github.com/Artem-K16git/sdvps-materials-L1-.git/
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/Artem-K16git/sdvps-materials-L1-.git/ +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision da5acf7bcb7f437637adf06fbd03a24dc2c8f13e (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f da5acf7bcb7f437637adf06fbd03a24dc2c8f13e # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master da5acf7bcb7f437637adf06fbd03a24dc2c8f13e # timeout=10
+Commit message: "branch main, add creds for vagrant box"
+ > git rev-list --no-walk da5acf7bcb7f437637adf06fbd03a24dc2c8f13e # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ go test .
+ok  	github.com/netology-code/sdvps-materials	(cached)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ CGO_ENABLED=0
++ GOOS=linux
++ /usr/bin/go build -a -installsuffix nocgo -o /tmp/hello-world-v18
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push)
+[Pipeline] sh
++ curl -v -u admin:Start12345 http://192.168.7.34:8081/#browse/browse:my_repo_rawh/hello-world:v18 -F file=ubuntu-bionic:8081/hello-world:v18
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 192.168.7.34:8081...
+* Connected to 192.168.7.34 (192.168.7.34) port 8081
+* Server auth using Basic with user 'admin'
+> POST / HTTP/1.1
+> Host: 192.168.7.34:8081
+> Authorization: Basic YWRtaW46U3RhcnQxMjM0NQ==
+> User-Agent: curl/8.5.0
+> Accept: */*
+> Content-Length: 185
+> Content-Type: multipart/form-data; boundary=------------------------dMZ0CTpeMzb9r9W6sjie2L
+> 
+} [185 bytes data]
+* We are completely uploaded and fine
+< HTTP/1.1 405 HTTP method POST is not supported by this URL
+< Server: Nexus/3.78.2-04 (COMMUNITY)
+< X-Content-Type-Options: nosniff
+< Cache-Control: no-cache, no-store, max-age=0, must-revalidate, post-check=0, pre-check=0
+< Pragma: no-cache
+< Expires: 0
+< X-Frame-Options: DENY
+< Content-Type: text/html
+< Transfer-Encoding: chunked
+< 
+{ [1510 bytes data]
+100  1695    0  1510  100   185  65218   7990 --:--:-- --:--:-- --:--:-- 73695
+* Connection #0 to host 192.168.7.34 left intact
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>405 - Sonatype Nexus Repository</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+  <link rel="icon" type="image/png" href="./static/rapture/resources/safari-favicon-32x32.png?3.78.2-04" sizes="32x32">
+  <link rel="mask-icon" href="./static/rapture/resources/favicon-white.svg?3.78.2-04" color="#00bb6c">
+  <link rel="icon" type="image/png" href="./static/rapture/resources/favicon.svg?3.78.2-04" sizes="16x16">
+
+  <link rel="stylesheet" type="text/css" href="./static/css/nexus-content.css?3.78.2-04"/>
+</head>
+<body>
+<div class="nexus-header">
+  <a href=".">
+    <div class="product-logo">
+      <img src="./static/rapture/resources/nxrm-reverse-icon.png?3.78.2-04" alt="Product logo"/>
+    </div>
+    <div class="product-id">
+      <div class="product-id__line-1">
+        <span class="product-name">Sonatype Nexus Repository</span>
+      </div>
+      <div class="product-id__line-2">
+        <span class="product-spec">3.78.2-04</span>
+      </div>
+    </div>
+  </a>
+</div>
+
+<div class="nexus-body">
+  <div class="content-header">
+    <img src="./static/rapture/resources/icons/x32/exclamation.png?3.78.2-04" alt="Exclamation point" aria-role="presentation"/>
+    <span class="title">Error 405</span>
+    <span class="description">Method Not Allowed</span>
+  </div>
+  <div class="content-body">
+    <div class="content-section">
+      HTTP method POST is not supported by this URL
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

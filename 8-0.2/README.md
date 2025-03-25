@@ -11,13 +11,13 @@
 ### Задание 2
 
 Логи с успешным Console Output в файле L2_succeslog.txt
-
+Код пайплана в скриншоте pipeline.png
 
 ---
 
 ### Задание 3
-
-https://github.com/Artem-K16git/for-edu/network
+Логи с успешным Console Output в файле L3_succeslog.txt
+Код пайплана в скриншоте pipeline_L3.png
 
 ### Задание 4
 
@@ -40,3 +40,4 @@ https://github.com/Artem-K16git/for-edu/network
 
 `При необходимости прикрепитe сюда скриншоты
 ![Название скриншота](ссылка на скриншот)`
+
