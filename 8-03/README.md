@@ -11,10 +11,8 @@
 
 ### Задание 2
 
-https://github.com/Artem-K16git/for-edu/commit/5136ee9a4ce418b0768b66a2809f1b34067b4830
-
-
----
+Скриншот с именем L2-passed и файлик .gitlab-ci.yml
+--
 
 ### Задание 3
 
