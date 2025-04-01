@@ -27,16 +27,16 @@ systemctl enable zabbix-server zabbix-agent apache2
 2.
 Скриншоты:
 ![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/img/Auth_zabbix1.png)
-https://github.com/Artem-K16git/Homeworks/blob/main/img/Auth_zabbix2.png
+![Скриншот2](https://github.com/Artem-K16git/Homeworks/blob/main/img/Auth_zabbix2.png)
 
 ---
 
 ### Задание 2
 
-1. https://github.com/Artem-K16git/Homeworks/blob/main/img/Conf_hosts.png
-2. https://github.com/Artem-K16git/Homeworks/blob/main/img/zabbix_agent_logs1.png
-   https://github.com/Artem-K16git/Homeworks/blob/main/img/zabbix_agent_logs2.png
-3. https://github.com/Artem-K16git/Homeworks/blob/main/img/zabbix_agent_logs3.png
+1. ![1](https://github.com/Artem-K16git/Homeworks/blob/main/img/Conf_hosts.png)
+2. ![2](https://github.com/Artem-K16git/Homeworks/blob/main/img/zabbix_agent_logs1.png)
+   ![3](https://github.com/Artem-K16git/Homeworks/blob/main/img/zabbix_agent_logs2.png)
+3. ![4](https://github.com/Artem-K16git/Homeworks/blob/main/img/zabbix_agent_logs3.png)
 4.  
 wget https://repo.zabbix.com/zabbix/7.2/release/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.2+ubuntu24.04_all.deb
 dpkg -i zabbix-release_latest_7.2+ubuntu24.04_all.deb
@@ -52,7 +52,7 @@ systemctl enable zabbix-agent
 
 ### Задание 3
 
-1. https://github.com/Artem-K16git/Homeworks/blob/main/img/Win110_free_space.png
+1. ![1](https://github.com/Artem-K16git/Homeworks/blob/main/img/Win110_free_space.png)
 
 
 
