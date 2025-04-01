@@ -1,4 +1,4 @@
-#### Система мониторинга Zabbix - Капитонов Артем Александрович
+# Система мониторинга Zabbix - Капитонов Артем Александрович
 
 
 
@@ -26,7 +26,7 @@ systemctl enable zabbix-server zabbix-agent apache2
 
 2.
 Скриншоты:
-https://github.com/Artem-K16git/Homeworks/blob/main/img/Auth_zabbix1.png
+![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/img/Auth_zabbix1.png)
 https://github.com/Artem-K16git/Homeworks/blob/main/img/Auth_zabbix2.png
 
 ---
