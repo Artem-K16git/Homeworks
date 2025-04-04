@@ -49,9 +49,9 @@
 Проверьте что в раздел Latest Data начали поступать необходимые данные из вашего шаблона  
 Требования к результату:  
 Прикрепите в файл README.md скриншот страницы хостов, где будут видны привязки шаблонов с названиями «Задание 2-3». Хосты должны иметь зелёный статус подключения  
-![1](https://github.com/Artem-K16git/Homeworks/blob/main/Zabbix-hw-03/img/Задание2-3_1.png)
+![1](https://github.com/Artem-K16git/Homeworks/blob/main/Zabbix-hw-03/img/Screenshot_3.png)
 
-![2](https://github.com/Artem-K16git/Homeworks/blob/main/Zabbix-hw-03/img/Задание2-3_2.png)
+
 
 ---
 
@@ -65,7 +65,7 @@
 Разместите на нём несколько графиков на ваше усмотрение.  
 Требования к результату  
  Прикрепите в файл README.md скриншот дашборда с названием «Задание 4»  
- ![Задание4](https://github.com/Artem-K16git/Homeworks/blob/main/Zabbix-hw-03/img/Задание4.png)
+ ![Задание4](https://github.com/Artem-K16git/Homeworks/blob/main/Zabbix-hw-03/img/Screenshot_3.png)
 
 
  ---
