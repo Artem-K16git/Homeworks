@@ -16,7 +16,7 @@
 Скриншоты:  
 ![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/R0_conf_ter.png)  
 Файл в формате pkt:  
-![Скриншот2](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/hsrp_advanced_done.pkt)
+https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/hsrp_advanced_done.pkt
 
 ---
 
