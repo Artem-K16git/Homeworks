@@ -14,7 +14,8 @@
 Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.  
 На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.2.  
 Скриншоты:  
-![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/R0_conf_ter.png)
+![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/R0_conf_ter.png)  
+Файл в формате pkt:  
 ![Скриншот2](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/hsrp_advanced_done.pkt)
 
 ---
