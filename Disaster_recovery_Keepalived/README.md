@@ -13,7 +13,7 @@
 Необходимо аналогично настроить отслеживание состояния интерфейсов Gi0/0 (для первой группы).  
 Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.  
 На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.2.  
-Скриншоты:  
+В скриншоте небольшая ошибка, правильнная команда "standby 1 preempt"
 ![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/R1_conf_ter.png)  
 Файл в формате pkt:  
 https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/hsrp_advanced_done.pkt
