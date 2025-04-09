@@ -26,7 +26,19 @@ https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived
 Настройте любой веб-сервер (например, nginx или simple python server) на двух виртуальных машинах  
 Напишите Bash-скрипт, который будет проверять доступность порта данного веб-сервера и существование файла index.html в root-директории данного веб-сервера.  
 Настройте Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Используйте для этого секцию vrrp_script  
-На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html 
+На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html  
+
+Ответ:  
+Загружаемая страница, при  обращении на адрес 192.168.7.100,(веб-сервер apacahe и его дефолтная страниц на мастер-сервере):  
+![](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/2_apache.png)
+Меняю имя index.html:  
+![](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/2_mv_index.png)  
+Загружается страница,при  обращении на адрес 192.168.7.100(веб-сервер nginx и чуть его отредактированная дефолтная страница):  
+![](https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/2_BS.png)  
+При возвращении стандартного имени мастер-сервер снова забирает себе адрес.  
+Конфигурационный файл и баш-скрипт:  
+https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/keepalived.conf  
+https://github.com/Artem-K16git/Homeworks/blob/main/Disaster_recovery_Keepalived/img/check_script.sh
 
 
 ---
