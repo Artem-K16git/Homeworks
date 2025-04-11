@@ -13,8 +13,8 @@
 Настройте балансировку Round-robin на 4 уровне.  
 На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.  
 Ответ:  
-![Скриншот1]()  
-Конфиг-файл:  
+![Скриншот1](https://github.com/Artem-K16git/Homeworks/blob/main/Clustering_LoadBalancing/imgs_fs/RoundrobinTCP.png)  
+Конфиг-файл:  https://github.com/Artem-K16git/Homeworks/blob/main/Clustering_LoadBalancing/imgs_fs/Lesson1_haproxy.cfg  
 
 
 ---
@@ -26,8 +26,8 @@
 HAproxy должен балансировать только тот http-трафик, который адресован домену example.local  
 На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy c использованием домена example.local и без него.   
 Ответ:  
-![]()  
-Конфиг-файл:
+![Screenshot2](https://github.com/Artem-K16git/Homeworks/blob/main/Clustering_LoadBalancing/imgs_fs/WRR_7L.png)  
+Конфиг-файл: https://github.com/Artem-K16git/Homeworks/blob/main/Clustering_LoadBalancing/imgs_fs/Lesson2_haproxy.cfg
 
 ---
 
