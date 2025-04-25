@@ -29,6 +29,7 @@
 Ответ:  
 ![L2](https://github.com/Artem-K16git/Homeworks/blob/main/Backup-hw/img/L2.png)  
 Скрипт:  
+https://github.com/Artem-K16git/Homeworks/blob/main/Backup-hw/img/rsync.sh
 
 
 ---
