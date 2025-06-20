@@ -43,7 +43,14 @@ $ rabbitmqadmin get queue='hello'
 
 ![L3_1](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_1_vm1.png)
 ![L3_2](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_1_vm3.png)
-![L3_3](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_3.png)
+![L3_3](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_3.png)  
+
+### Ошибки:  
+rabbimqadmin:  
+![L3_r](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_rabbitmqadmin.png)  
+
+HA-all policies:  
+![L3_p](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_policies.png)
 
 ---  
 
