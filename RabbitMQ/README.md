@@ -41,16 +41,14 @@ $ rabbitmqadmin get queue='hello'
 Приложите скриншот результата работы второго скрипта.  
 #### Ответ:  
 
-![L3_1](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_1_vm1.png)
-![L3_2](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_1_vm3.png)
-![L3_3](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_3.png)  
+![LL3_rabbitmq1](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_rabbitmq1.png)
+![L3_rabbitmq3](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_rabbitmq3.png)
+![L3_exchanges](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_exchanges.png)  
 
 ### Ошибки:  
-rabbimqadmin:  
-![L3_r](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_rabbitmqadmin.png)  
 
-HA-all policies:  
-![L3_p](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_policies.png)
+Проблема со скриптом producer.py  
+![L3_p](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/pika_error.png)
 
 ---  
 
