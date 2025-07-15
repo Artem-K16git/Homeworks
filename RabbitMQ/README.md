@@ -45,10 +45,15 @@ $ rabbitmqadmin get queue='hello'
 ![L3_rabbitmq3](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_rabbitmq3.png)
 ![L3_exchanges](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_exchanges.png)  
 
-### Ошибки:  
+Выполнение команды 
+```rabbitmqadmin get queue='hello'```
+![L3_get_queue](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_get_queue.png)  
+Выключил 2-ю ноду(172.20.0.4), на которые отправлял сообщения продюсер:  
+![L3_2shutdown](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_2shutdown.png)  
+Консюмер продолжает получать сообщения от продюсера, несмотря на то, что адресат продюсера выключен:  
+![L3_end](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/L3_end.png)
 
-Проблема со скриптом producer.py  
-![L3_p](https://github.com/Artem-K16git/Homeworks/blob/main/RabbitMQ/images/pika_error.png)
+
 
 ---  
 
