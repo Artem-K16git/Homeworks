@@ -46,7 +46,7 @@ show_master_status:
 ![1](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/show_master_status.png) 
 show_slave_status\G:
 ![2](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/show_slave_status_G.png) 
-В DBeavere:
+В DBeavere:  
 ![3](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/3.png)
 
 
