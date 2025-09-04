@@ -24,7 +24,7 @@ Master-master. Все сервера равнозначны и работают 
 Выполните конфигурацию master-slave репликации, примером можно пользоваться из лекции.  
 Приложите скриншоты конфигурации, выполнения работы: состояния и режимы работы серверов.  
 #### Ответ:  
-Docker compose файл:
+Docker compose файл:  
 https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/docker-compose.yml  
 show master status и show slave\G:  
 ![3.1](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/L3_1.png)
