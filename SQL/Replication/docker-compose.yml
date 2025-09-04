@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  mysql-master:
+    image: 'mysql:8.0'
+    container_name: mysql-master_com
+    env_file: .env
+    volumes:
+      - ./master/my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - ./master/master.sql:/docker-entrypoint-initdb.d/start.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+
+  mysql-slave:
+    image: 'mysql:8.0'
+    container_name: mysql-slave_com
+    env_file: .env
+    volumes:
+      - ./slave/my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - ./slave/slave.sql:/docker-entrypoint-initdb.d/start.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD:${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3307:3306
+    depends_on:
+      - mysql-master
