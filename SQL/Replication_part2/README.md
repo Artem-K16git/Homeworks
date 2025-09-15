@@ -38,7 +38,7 @@ Master-сервер и несколько slave-серверов
 Пришлите блоксхему, где и что будет располагаться. Опишите, в каких режимах будут работать сервера.  
 #### Ответ:  
 ##### Вертикальный шардинг, при разбиении на 3 машины:
-![1](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/image_2025-09-15_16-11-27.png)
+![1](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/rep_p2.png)
 
 ##### Горизонтальный шардинг  
 Можно сделать по диапазонному(Range-Based), по значению store_id.
