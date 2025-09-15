@@ -21,11 +21,15 @@ Master-master. Все сервера равнозначны и работают 
 ---
 
 ### Задание 2.   
-Задание 2
 Выполните конфигурацию master-slave репликации, примером можно пользоваться из лекции.  
 Приложите скриншоты конфигурации, выполнения работы: состояния и режимы работы серверов.  
 #### Ответ:  
-Разворачивал вручную, без docker compose, поэтому отображу часть применных комманд.  
+Docker compose файл:  
+https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/docker-compose.yml  
+show master status и show slave\G:  
+![3.1](https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Replication/images/L3_1.png)
+
+Если вручную, без docker compose.  
 Запуск контейнеров master и slave:
 ```
 docker run --name mysql-master -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret -d 57c7595ac65f
