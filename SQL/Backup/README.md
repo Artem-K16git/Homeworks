@@ -46,13 +46,16 @@ pg_dump -U user -h localhost -p 5432 -d sakila -Fc -f /path/to/backup/sakiladb.b
 ```
 pg_restore -U user -h localhost -p 5432 -d sakila -v /path/to/backup/sakiladb.backup
 ```
-где:
-- Uhpd - указывал в предыдущем примере;
+где:  
+- Uhpd - указывал в предыдущем примере;  
 - v - включает режим подробного логгирования.
-- 2.1.*
-Можно автоматизировать. Написать скрипт, добавить в cron  его запуск в 4-5 утра.
-Пример:
 
+2.1.*
+Можно автоматизировать. Написать скрипт и добавить в cron  его запуск в 4-5 утра.  
+Пример:  
+https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Backup/pg_backup.bash  
+Скрипт не мой.
+Взял [отсюда](https://habr.com/ru/articles/595641/)
 
 
 ---
