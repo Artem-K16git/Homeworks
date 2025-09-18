@@ -66,7 +66,37 @@ https://github.com/Artem-K16git/Homeworks/blob/main/SQL/Backup/pg_backup.bash
 3.1.* В каких случаях использование реплики будет давать преимущество по сравнению с обычным резервным копированием?  
 Приведите ответ в свободной форме.  
  #### Ответ:  
+3.1. Инкрементное копирование в MySQL можно реализовать только через резервное копирование двоичных журналов(в бесплатных версиях). 
+- включаем двоичный журнал на сервере MySQL.
+- создаем полный бэкап:
+```
+mysqldump --flush-logs --delete-source-logs --sligle-transaction --all-databases -uroot -p -hlocalhost > /path/to/backup/$(date +%d-%m-%Y_%H-%M-%S)_sakila.sql
+```
+- закрываем двоичные журналы, чтобы сервер начал писать новый и мы могли скопировать старые, подключившись с MySQL-серверу:
+```
+FLUSH BINARY LOGS;
+```
+- после этого можно скопировать все файлы журналов кроме текущего(нового):
+```
+cp /var/log/mysql/mysql-bin.000002 /path/to/backups/$(date +%d-%m-%Y_%H-%M-%S).mysql-bin
+```
+- удаляем старые журналы, чтобы они не дублировались в будущих операциях:
+```
+PURGE BINARY LOGS TO 'имя_текущего_журнала';
+```
+Пример команд для MySQL Enterprise Backup 8.0(коммерческая):
+```
+mysqlbackup --defaults-file=/home/dbadmin/my.cnf \
+  --incremental=optimistic --incremental-base=history:last_backup \
+  --backup-dir=/home/dbadmin/temp_dir \
+  --backup-image=incremental_image1.bi 
+   backup-to-image
+```
 
+3.1.*
+Репликация не является механизмом резервного копирования.  
+Поэтому резервное копирование и репликацию применяют для разных задач.
+Резервное копирование предназначается для предотвращения безвозвратной потери данных, а репликацию для отказоустойчивости системы.
 
 
 
