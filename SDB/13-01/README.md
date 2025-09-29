@@ -49,12 +49,20 @@ UDP - отправляется пустой(без данных) пакет UDP.
 - при неполучении ответа(после нескольких попыток).  
 SYN:  
  ![ASK](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/ASK.png)  
+В Wireshark:   
+![WS_SYN](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/WS_SYN.png)
 FIN:  
  ![FIN](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/FIN.png)  
+В Wireshark:  
+![WS_FIN](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/WS_FIN.png)  
 Xmas:  
- ![Xmas](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/Xmas.png)  
+ ![Xmas](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/Xmas.png)
+В Wireshark:   
+![WS_Xmas](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/WS_Xmas.png)  
 UDP:  
  ![UDP](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/UPD.png)
+В Wireshark:    
+![WS_UDP](https://github.com/Artem-K16git/Homeworks/blob/main/SDB/images/WS_UDP.png) 
 
 
 
