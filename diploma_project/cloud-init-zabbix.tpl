@@ -42,5 +42,4 @@ runcmd:
     chown -R www-data:www-data /usr/share/zabbix/
     chmod -R 755 /usr/share/zabbix/
 
-# Optional: Write initial MOTD
 final_message: "Zabbix server setup completed. Run Ansible playbook for full configuration."
