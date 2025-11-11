@@ -1,0 +1,81 @@
+---
+- name: Force install Zabbix agents
+  hosts: webservers
+  become: yes
+  vars_files:
+    - zabbix-setup/vars.yml
+
+  tasks:
+    - name: Install required packages
+      apt:
+        name: wget
+        state: present
+
+    - name: Download Zabbix repository package
+      get_url:
+        url: "https://repo.zabbix.com/zabbix/{{ zabbix_version }}/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_{{ zabbix_version }}+debian12_all.deb"
+        dest: /tmp/zabbix-release.deb
+
+    - name: Install Zabbix repository
+      apt:
+        deb: /tmp/zabbix-release.deb
+
+    - name: Update package cache
+      apt:
+        update_cache: yes
+
+    - name: Install Zabbix agent
+      apt:
+        name: zabbix-agent2
+        state: present
+
+    - name: Configure Zabbix agent
+      template:
+        src: zabbix-setup/templates/zabbix_agent2.conf.j2
+        dest: /etc/zabbix/zabbix_agent2.conf
+        backup: yes
+
+    - name: Create runtime directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: zabbix
+        group: zabbix
+        mode: '0755'
+      loop:
+        - /run/zabbix
+        - /var/log/zabbix
+
+    - name: Start and enable agent
+      systemd:
+        name: zabbix-agent2
+        state: started
+        enabled: yes
+
+    - name: Check agent status
+      systemd:
+        name: zabbix-agent2
+        state: started
+      register: agent_status
+
+    - name: Show agent status
+      debug:
+        var: agent_status
+
+    - name: Test agent configuration
+      command: zabbix_agent2 -c /etc/zabbix/zabbix_agent2.conf --test
+      register: config_test
+      changed_when: false
+
+    - name: Show configuration test result
+      debug:
+        var: config_test.stdout
+
+    - name: Test agent connectivity
+      wait_for:
+        host: "{{ zabbix_server_host | default('10.130.2.100') }}"
+        port: 10051
+        state: started
+        delay: 5
+        timeout: 30
+      delegate_to: localhost

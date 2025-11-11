@@ -1,0 +1,145 @@
+- name: Install required packages
+  apt:
+    name: wget
+    state: present
+
+- name: Install MySQL Python dependencies
+  apt:
+    name:
+      - python3-pymysql
+      - python3-mysqldb
+    state: present
+
+- name: Download Zabbix repository package
+  get_url:
+    url: "https://repo.zabbix.com/zabbix/{{ zabbix_version }}/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_{{ zabbix_version }}+debian12_all.deb"
+    dest: /tmp/zabbix-release.deb
+
+- name: Install Zabbix repository
+  apt:
+    deb: /tmp/zabbix-release.deb
+
+- name: Update package cache after adding Zabbix repo
+  apt:
+    update_cache: yes
+
+- name: Install Zabbix components
+  apt:
+    name:
+      - zabbix-server-mysql
+      - zabbix-frontend-php
+      - zabbix-apache-conf
+      - zabbix-sql-scripts
+      - zabbix-agent
+    state: present
+
+- name: Install MySQL server
+  apt:
+    name:
+      - default-mysql-server
+      - default-mysql-client
+    state: present
+
+- name: Ensure MySQL service is running
+  systemd:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Wait for MySQL to start
+  wait_for:
+    port: 3306
+    delay: 10
+    timeout: 60
+
+- name: Secure MySQL installation and set root password
+  shell: |
+    # Check if root password is already set
+    if ! mysql -uroot -p{{ mysql_root_password }} -e "SELECT 1;" &>/dev/null; then
+      # Set root password if not set
+      sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ mysql_root_password }}';"
+      sudo mysql -e "FLUSH PRIVILEGES;"
+    fi
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+
+- name: Create .my.cnf for root user
+  copy:
+    content: |
+      [client]
+      user=root
+      password={{ mysql_root_password }}
+    dest: /root/.my.cnf
+    mode: 0600
+
+- name: Create Zabbix database
+  shell: |
+    mysql -e "CREATE DATABASE IF NOT EXISTS {{ zabbix_db_name }} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"
+  args:
+    executable: /bin/bash
+
+- name: Create Zabbix user
+  shell: |
+    mysql -e "CREATE USER IF NOT EXISTS '{{ zabbix_db_user }}'@'localhost' IDENTIFIED BY '{{ zabbix_db_password }}';"
+    mysql -e "GRANT ALL PRIVILEGES ON {{ zabbix_db_name }}.* TO '{{ zabbix_db_user }}'@'localhost';"
+    mysql -e "FLUSH PRIVILEGES;"
+  args:
+    executable: /bin/bash
+
+- name: Enable log_bin_trust_function_creators
+  shell: |
+    mysql -e "SET GLOBAL log_bin_trust_function_creators = 1;"
+  args:
+    executable: /bin/bash
+
+- name: Check if Zabbix database is already imported
+  shell: |
+    mysql -u{{ zabbix_db_user }} -p{{ zabbix_db_password }} {{ zabbix_db_name }} -e "SHOW TABLES LIKE 'role';" | grep -q role && echo "exists" || echo "not_exists"
+  args:
+    executable: /bin/bash
+  register: db_check
+  changed_when: false
+
+- name: Import Zabbix database schema (only if not exists)
+  shell: |
+    zcat /usr/share/zabbix/sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -u{{ zabbix_db_user }} -p{{ zabbix_db_password }} {{ zabbix_db_name }}
+  args:
+    executable: /bin/bash
+  when: db_check.stdout == "not_exists"
+
+- name: Disable log_bin_trust_function_creators
+  shell: |
+    mysql -e "SET GLOBAL log_bin_trust_function_creators = 0;"
+  args:
+    executable: /bin/bash
+
+- name: Configure Zabbix server
+  template:
+    src: ../templates/zabbix_server.conf.j2
+    dest: /etc/zabbix/zabbix_server.conf
+    backup: yes
+
+- name: Start and enable Zabbix services
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  loop:
+    - zabbix-server
+    - zabbix-agent
+    - apache2
+
+- name: Clean up temporary files
+  file:
+    path: /tmp/zabbix-release.deb
+    state: absent
+
+- name: Wait for Zabbix web interface to be ready
+  uri:
+    url: "http://localhost/zabbix/"
+    status_code: 200
+  register: zabbix_web_check
+  until: zabbix_web_check.status == 200
+  retries: 10
+  delay: 10

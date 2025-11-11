@@ -1,0 +1,56 @@
+---
+- name: Configure web servers
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Force update package cache
+      apt:
+        update_cache: yes
+        force: yes
+        cache_valid_time: 0  # Всегда обновлять кеш
+
+    - name: Wait for cache to update
+      pause:
+        seconds: 3
+
+    - name: Install nginx-light
+      apt:
+        name: nginx-light
+        state: present
+
+    - name: Create custom index.html
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="UTF-8">
+              <title>Web Server - {{ ansible_hostname }}</title>
+          </head>
+          <body>
+              <h1>Welcome to {{ ansible_hostname }}</h1>
+              #<p>IP Address: {{ ansible_default_ipv4.address }}</p>
+              <p>Distribution: {{ ansible_distribution }} {{ ansible_distribution_version }}</p>
+              <p>Deployed: {{ ansible_date_time.iso8601 }}</p>
+              <hr>
+              <p>Server ID: {{ inventory_hostname }}</p>
+          </body>
+          </html>
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+      notify: reload nginx
+
+    - name: Ensure nginx is started and enabled
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: reload nginx
+      systemd:
+        name: nginx
+        state: reloaded

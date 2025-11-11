@@ -1,0 +1,42 @@
+---
+- name: Diagnose package manager issues
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Check Debian version
+      shell: |
+        cat /etc/os-release
+      register: os_info
+      changed_when: false
+
+    - name: Display OS info
+      debug:
+        var: os_info.stdout
+
+    - name: Check repository sources
+      shell: |
+        cat /etc/apt/sources.list
+        echo "=== sources.list.d ==="
+        ls -la /etc/apt/sources.list.d/
+      register: repo_sources
+      changed_when: false
+
+    - name: Display repository sources
+      debug:
+        var: repo_sources.stdout
+
+    - name: Force update package cache
+      apt:
+        update_cache: yes
+        force: yes
+
+    - name: Check available nginx packages
+      shell: |
+        apt-cache policy nginx
+      register: nginx_policy
+      changed_when: false
+
+    - name: Display nginx policy
+      debug:
+        var: nginx_policy.stdout

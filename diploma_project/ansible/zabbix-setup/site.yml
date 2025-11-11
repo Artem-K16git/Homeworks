@@ -1,0 +1,49 @@
+---
+- name: Update package cache on all hosts
+  hosts: all
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Force update package cache on all hosts
+      apt:
+        update_cache: yes
+        force: yes
+        cache_valid_time: 3600
+
+- name: Install Zabbix Server
+  hosts: zabbix_server
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+    - include_tasks: zabbix-server/install.yml
+
+- name: Install Zabbix Agents
+  hosts: webservers
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+    - include_tasks: zabbix-agent/install.yml
+
+- name: Display installation summary
+  hosts: localhost
+  tasks:
+    - name: Get Zabbix server IP
+      set_fact:
+        zabbix_server_ip: "{{ hostvars[groups['zabbix_server'][0]].ansible_host }}"
+      when: hostvars[groups['zabbix_server'][0]].ansible_host is defined
+
+    - name: Show access information
+      debug:
+        msg: |
+          Installation completed!
+
+          Zabbix Server: {{ groups['zabbix_server'] | join(', ') }}
+          Zabbix Agents: {{ groups['web_servers'] | join(', ') }}
+
+          Access Zabbix web interface:
+          http://{{ zabbix_server_ip | default(groups['zabbix_server'][0]) }}/zabbix/
+
+          Default credentials: Admin / zabbix

@@ -1,0 +1,19 @@
+# Zabbix Agent Configuration
+PidFile=/run/zabbix/zabbix_agent2.pid
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=0
+DebugLevel=3
+
+Server={{ zabbix_server_host | default('10.130.2.100') }}
+ServerActive={{ zabbix_server_host | default('10.130.2.100') }}
+Hostname={{ inventory_hostname }}
+
+HostMetadata=linux
+HostMetadataItem=system.uname
+
+EnableRemoteCommands=1
+LogRemoteCommands=1
+
+Include=/etc/zabbix/zabbix_agent2.d/*.conf
+
+
