@@ -1,46 +1,30 @@
 #cloud-config
 users:
-  - name: test-net
+  - name: ${vm_username}
     groups: sudo
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
       - ${ssh_public_key}
 
-package_update: true
-package_upgrade: false
-
-packages:
-  - curl
-  - wget
-  - python3
-  - python3-pip
+package_update: false
 
 runcmd:
   - |
-    echo "=== Basic web server setup ==="
-    # Create web directory for future use
-    mkdir -p /var/www/html/
-    
-    # Create basic info page
-    cat > /var/www/html/info.html << 'EOF'
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Server Info</title>
-    </head>
-    <body>
-        <h1>This is $(hostname)</h1>
-        <p>IP Address: $(hostname -I | awk '{print $1}')</p>
-        <p>Distribution: Debian 12</p>
-        <p>Role: Web Server (nginx will be installed by Ansible)</p>
-        <p>Deployed: $(date)</p>
-    </body>
-    </html>
-    EOF
-    
-    chmod 644 /var/www/html/info.html
-    echo "=== Basic setup completed ==="
+    echo "=== Forcing apt cache update ==="
+    apt update
+    sleep 3
+  - |
+    echo "=== Installing nginx-light and Ansible dependencies ==="
+    apt install -y nginx-light curl wget python3 python3-pip net-tools
+  - update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+  - systemctl enable nginx
+  - systemctl start nginx
+  - echo "<html><body><h1>Web Server $(hostname)</h1><p>Will be configured by Ansible</p></body></html>" > /var/www/html/inde>  - systemctl restart nginx
+  - |
+    echo "=== Host information ==="
+    echo "Hostname: $(hostname)"
+    echo "IP: $(hostname -I)"
+    echo "Ready for Ansible"
 
-final_message: "Debian 12 web server base configuration completed"
+final_message: "Web server $(hostname) with nginx and Ansible dependencies is ready after $UPTIME seconds"

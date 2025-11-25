@@ -1,0 +1,62 @@
+---
+- name: Add Filebeat repository from Yandex mirror
+  apt_repository:
+    repo: "{{ filebeat_repo_url }}"
+    state: present
+    filename: filebeat
+    update_cache: yes
+
+- name: Install Filebeat
+  apt:
+    name: "filebeat={{ filebeat_version }}"
+    state: present
+
+- name: Create filebeat user if not exists
+  user:
+    name: filebeat
+    system: yes
+    shell: /bin/false
+    home: /usr/share/filebeat
+    state: present
+  become: yes
+
+- name: Configure Filebeat for nginx logs
+  template:
+    src: "../templates/filebeat.yml.j2"
+    dest: /etc/filebeat/filebeat.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable nginx module configuration
+  template:
+    src: "../templates/nginx-filebeat.yml.j2"
+    dest: /etc/filebeat/modules.d/nginx.yml
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable Filebeat nginx module
+  command:
+    cmd: filebeat modules enable nginx
+    creates: /etc/filebeat/modules.d/nginx.yml.disabled
+
+- name: Fix permissions for nginx logs
+  file:
+    path: "{{ item }}"
+    mode: '0644'
+    owner: root
+    group: root
+  loop:
+    - /var/log/nginx/access.log
+    - /var/log/nginx/error.log
+
+- name: Start and enable Filebeat service
+  systemd:
+    name: filebeat
+    state: started
+    enabled: yes
+
+- name: Show completion message
+  debug:
+    msg: "Filebeat installed and started on {{ inventory_hostname }}"

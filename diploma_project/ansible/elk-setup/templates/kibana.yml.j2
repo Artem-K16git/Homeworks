@@ -1,0 +1,13 @@
+server.port: 5601
+server.host: "0.0.0.0"
+elasticsearch.hosts: ["http://{{ filebeat_elasticsearch_host }}:9200"]
+server.name: "kibana-server"
+
+# Security settings
+elasticsearch.username: "kibana_system"
+elasticsearch.password: ""
+xpack.security.enabled: false
+
+# Basic settings
+status.allowAnonymous: true
+i18n.locale: "en"

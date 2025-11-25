@@ -14,6 +14,7 @@ packages:
   - apt-transport-https
   - wget
   - curl
+  - openjdk-17-jdk
 
 write_files:
   - path: /opt/wait-for-elasticsearch.sh

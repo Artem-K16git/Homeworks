@@ -14,8 +14,8 @@
 - name: Install Zabbix Server
   hosts: zabbix_server
   become: yes
-  vars_files:
-    - vars.yml
+  vars:
+    include_vars: vars.yml
   tasks:
     - include_tasks: zabbix-server/install.yml
 
@@ -26,6 +26,14 @@
     - vars.yml
   tasks:
     - include_tasks: zabbix-agent/install.yml
+
+- name: Configure Nginx status page
+  hosts: webservers
+  become: yes
+  vars_files:
+    - vars.yml
+  tasks:
+    - include_tasks: nginx/configure-status-page.yml
 
 - name: Display installation summary
   hosts: localhost
@@ -41,7 +49,7 @@
           Installation completed!
 
           Zabbix Server: {{ groups['zabbix_server'] | join(', ') }}
-          Zabbix Agents: {{ groups['web_servers'] | join(', ') }}
+          Zabbix Agents: {{ groups['webservers'] | join(', ') }}
 
           Access Zabbix web interface:
           http://{{ zabbix_server_ip | default(groups['zabbix_server'][0]) }}/zabbix/

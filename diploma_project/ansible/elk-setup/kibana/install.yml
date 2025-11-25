@@ -1,0 +1,57 @@
+---
+- name: Add Kibana repository from Yandex mirror
+  apt_repository:
+    repo: "{{ kibana_repo_url }}"
+    state: present
+    filename: kibana
+    update_cache: yes
+
+- name: Install Kibana
+  apt:
+    name: "kibana={{ kibana_version }}"
+    state: present
+
+- name: Configure Kibana
+  template:
+    src: "../templates/kibana.yml.j2"
+    dest: /etc/kibana/kibana.yml
+    owner: kibana
+    group: kibana
+    mode: 0644
+  notify: restart kibana
+
+- name: Clean up old Kibana configuration
+  lineinfile:
+    path: /etc/kibana/kibana.yml
+    regex: '^(kibana\\.index|xpack\\.encryptedSavedObjects\\.encryptionKey)'
+    state: absent
+  ignore_errors: yes
+  notify: restart kibana
+
+- name: Start and enable Kibana service
+  systemd:
+    name: kibana
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: Wait for Kibana to start
+  wait_for:
+    port: "{{ kibana_server_port }}"
+    delay: 10
+    state: started
+    timeout: 120
+
+- name: Verify Kibana is running
+  uri:
+    url: "http://localhost:5601"
+    method: GET
+  register: kibana_status
+  until: kibana_status.status == 200
+  retries: 15
+  delay: 10
+
+- name: Show Kibana status
+  debug:
+    msg: "Kibana is running successfully"
+  when: kibana_status.status == 200

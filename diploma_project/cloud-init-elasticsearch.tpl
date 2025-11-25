@@ -14,7 +14,7 @@ packages:
   - apt-transport-https
   - wget
   - curl
-  - openjdk-11-jdk
+  - openjdk-17-jdk
 
 write_files:
   - path: /etc/systemd/system/elasticsearch.service.d/override.conf

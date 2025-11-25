@@ -1,0 +1,26 @@
+---
+# Версии компонентов - используем 8.x
+elasticsearch_version: "8.11.0"
+kibana_version: "8.11.0"
+filebeat_version: "8.11.0"
+
+# Настройки Java
+java_package: openjdk-17-jdk
+
+# Настройки Elasticsearch
+elasticsearch_cluster_name: "elk-cluster"
+elasticsearch_heap_size: "512m"
+elasticsearch_network_host: "0.0.0.0"
+elasticsearch_http_port: 9200
+
+# Настройки Kibana
+kibana_server_port: 5601
+kibana_server_host: "0.0.0.0"
+
+# Настройки Filebeat - используем прямой IP Elasticsearch
+filebeat_elasticsearch_host: "10.130.0.34"
+
+# Yandex mirror URLs
+elasticsearch_repo_url: "deb [trusted=yes] https://mirror.yandex.ru/mirrors/elastic/8/ stable main"
+kibana_repo_url: "deb [trusted=yes] https://mirror.yandex.ru/mirrors/elastic/8/ stable main"
+filebeat_repo_url: "deb [trusted=yes] https://mirror.yandex.ru/mirrors/elastic/8/ stable main"

@@ -11,7 +11,6 @@ resource "yandex_vpc_subnet" "bastion_subnet" {
   v4_cidr_blocks = ["10.130.10.0/24"]
 }
 
-# Таблица маршрутов для веб-серверов (создаем ПЕРВОЙ)
 resource "yandex_vpc_route_table" "nat_route" {
   name       = "nat-route-table"
   network_id = yandex_vpc_network.main.id
@@ -47,7 +46,8 @@ resource "yandex_vpc_subnet" "kibana_subnet" {
   network_id     = yandex_vpc_network.main.id
   v4_cidr_blocks = ["10.130.3.0/24"]
 }
-# Группа безопасности для веб-серверов
+
+# Группа безопасности для веб-серверов (обновлена для Instance Group)
 resource "yandex_vpc_security_group" "web_sg" {
   name        = "web-security-group"
   network_id  = yandex_vpc_network.main.id
@@ -81,6 +81,13 @@ resource "yandex_vpc_security_group" "web_sg" {
     description    = "HTTPS from anywhere"
     port           = 443
     v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Health checks from load balancer"
+    port           = 80
+    v4_cidr_blocks = ["198.18.235.0/24", "198.18.248.0/24"]  # Yandex Load Balancer health check ranges
   }
 
   egress {
@@ -237,9 +244,16 @@ resource "yandex_vpc_security_group" "elasticsearch_sg" {
 
   ingress {
     protocol       = "TCP"
-    description    = "Elasticsearch cluster communication"
-    port           = 9300
+    description    = "Elasticsearch REST API from Kibana subnet"
+    port           = 9200
     v4_cidr_blocks = ["10.130.0.0/16"]
+  }
+
+  ingress {
+    protocol       = "TCP"
+    description    = "Elasticsearch API from all internal subnets"
+    port           = 9200
+    v4_cidr_blocks = ["10.130.0.0/16"]  # Все внутренние подсети
   }
 
   ingress {

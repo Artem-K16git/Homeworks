@@ -1,4 +1,4 @@
-# Zabbix Agent Configuration
+# Zabbix Agent 2 Configuration
 PidFile=/run/zabbix/zabbix_agent2.pid
 LogFile=/var/log/zabbix/zabbix_agent2.log
 LogFileSize=0
@@ -11,9 +11,4 @@ Hostname={{ inventory_hostname }}
 HostMetadata=linux
 HostMetadataItem=system.uname
 
-EnableRemoteCommands=1
-LogRemoteCommands=1
-
 Include=/etc/zabbix/zabbix_agent2.d/*.conf
-
-

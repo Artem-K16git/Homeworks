@@ -1,0 +1,13 @@
+## JVM configuration
+-Xms512m
+-Xmx512m
+
+## JVM temporary directory
+-Djava.io.tmpdir=${ES_TMPDIR}
+
+## heap dumps
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath=/var/lib/elasticsearch
+
+# Минимальные настройки GC
+-XX:+UseG1GC
