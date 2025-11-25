@@ -28,7 +28,7 @@ resource "yandex_vpc_subnet" "web_subnets" {
   zone           = count.index == 0 ? "ru-central1-a" : "ru-central1-b"
   network_id     = yandex_vpc_network.main.id
   v4_cidr_blocks = [count.index == 0 ? "10.130.0.0/24" : "10.130.1.0/24"]
-  route_table_id = yandex_vpc_route_table.nat_route.id  # Привязываем таблицу маршрутов
+  route_table_id = yandex_vpc_route_table.nat_route.id
 }
 
 # Подсеть для Zabbix‑сервера (без route_table_id для прямого доступа в интернет)
@@ -47,7 +47,7 @@ resource "yandex_vpc_subnet" "kibana_subnet" {
   v4_cidr_blocks = ["10.130.3.0/24"]
 }
 
-# Группа безопасности для веб-серверов (обновлена для Instance Group)
+# Группа безопасности для веб-серверов
 resource "yandex_vpc_security_group" "web_sg" {
   name        = "web-security-group"
   network_id  = yandex_vpc_network.main.id
