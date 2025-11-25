@@ -57,10 +57,11 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 - Kibana:  [здесь](http://158.160.96.222:5601/app/discover#/view/e6b2d4e0-ca1c-11f0-8100-93d589644d31?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(columns:!(),filters:!(),grid:(),hideChart:!f,index:'filebeat-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc))))   
 Nginx на веб-сервера устанавливается через cloud-init-web.tpl, по причине того что при создании Instance Group, идет проверка(healfcheck) через порт 80, и без установки Nginx(или Apache) создание зависает и заверашется по таймауту(30мин).
 - ELK устанавливается также через ansible(ansible/elk-setup), или deploy_elk.sh.
-- Снапшоты. Первые снимки дисков ВМ сделал вручную, настройка последующих снапшотов в файле snapshots.tf  
-![Snapshots](https://github.com/Artem-K16git/Homeworks/blob/main/diploma_project/snap.jpg)
+- Снапшоты. Первые снимки дисков ВМ сделал вручную, настройка последующих снапшотов в файле snapshots.tf
+  
+![Snapshots](https://github.com/Artem-K16git/Homeworks/blob/main/diploma_project/Screenshot_12.png)
 
-Из дополнительных заданий получилось создать и применить Instance Group, что даже помогло с проблемой передачи имени пользователя(в cloud-init) через переменную, когда ВМ создается с использованием счетчика(counter).
+Из дополнительных заданий получилось создать и применить Instance Group, что даже помогло с проблемой передачи имени пользователя(в cloud-init) через переменную, когда ВМ создается с использованием счетчика(counter).  
 Не удалось разделить zabbix-server, не смог "подружить" бекэнд с кластером PostgreSQL.
 
 
