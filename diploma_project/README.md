@@ -52,7 +52,7 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 ### Решение:  
 
 - Zabbix-server:  [здесь](http://178.154.204.81/zabbix/)  
-Сам заббикс-сервер и агенты на веб-сервера устанавливаются с помощью ansible(ansible/zabbix-setup/site.yml). Или можно запустить через скрипт deploy_zabbix.sh. Файл hosts.ini лежит в ansible/inventory, формируется он автоматически(блок кода записан в конце файла vms.tf).  Добавление и настройку хостов, настройку дашбоардов проводил вручную.    
+Сам заббикс-сервер и агенты на веб-сервера устанавливаются с помощью ansible(ansible/zabbix-setup/site.yml). Или можно запустить через скрипт deploy_zabbix.sh. Файл hosts.ini лежит в ansible/inventory, формируется он автоматически(блок кода записан в конце файла vms.tf).  Добавление и настройку хостов(на заббикс-сервере), настройку дашбоардов проводил вручную.    
 - ALB с публичным адресом, который маршрутизирует трафик(round-robbin) на 2 веб-сервера: [здесь](http://158.160.203.44/)  
 - Kibana:  [здесь](http://158.160.96.222:5601/app/discover#/view/e6b2d4e0-ca1c-11f0-8100-93d589644d31?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(columns:!(),filters:!(),grid:(),hideChart:!f,index:'filebeat-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc))))   
 Nginx на веб-сервера устанавливается через cloud-init-web.tpl, по причине того что при создании Instance Group, идет проверка(healfcheck) через порт 80, и без установки Nginx(или Apache) создание зависает и заверашется по таймауту(30мин).
