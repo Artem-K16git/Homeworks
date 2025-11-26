@@ -57,6 +57,7 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 - Kibana:  [здесь](http://158.160.96.222:5601/app/discover#/view/e6b2d4e0-ca1c-11f0-8100-93d589644d31?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))&_a=(columns:!(),filters:!(),grid:(),hideChart:!f,index:'filebeat-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc))))   
 Nginx на веб-сервера устанавливается через cloud-init-web.tpl, по причине того что при создании Instance Group, идет проверка(healfcheck) через порт 80, и без установки Nginx(или Apache) создание зависает и заверашется по таймауту(30мин).
 - ELK устанавливается также через ansible(ansible/elk-setup), или deploy_elk.sh.
+- NAT-шлюз. Для хостов с приватными адресами(2 веб-сервера, elasticsearch) шлюзом является бастион. На нем настроено натирование, через файл cloud-init-bastion.tpl  
 - Снапшоты. Первые снимки дисков ВМ сделал вручную, настройка последующих снапшотов в файле snapshots.tf
   
 ![Snapshots](https://github.com/Artem-K16git/Homeworks/blob/main/diploma_project/Screenshot_12.png)
